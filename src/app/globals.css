@@ -1,0 +1,62 @@
+/* =========================
+   AOA – GLOBAL DESIGN TOKENS
+   ========================= */
+
+:root {
+  /* Core background */
+  --bg: #0B1020;
+
+  /* Surface / cards */
+  --surface: #161D33;
+
+  /* Text */
+  --text: #E7EAF0;
+  --muted: #9AA3B2;
+
+  /* Authority / primary action */
+  --cyan: #2EC4F1;
+
+  /* Positive */
+  --emerald: #2FBF9B;
+
+  /* Controlled reward */
+  --amber: #F4B942;
+
+  /* Negative / disagree */
+  --crimson: #C94A4A;
+
+  /* Layout */
+  --radius: 16px;
+  --space: 16px;
+
+  /* Conflict cooling (1 = normal, <1 = calmer) */
+  --cooldown-saturation: 1;
+}
+
+/* Reset */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont,
+               "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell;
+}
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}

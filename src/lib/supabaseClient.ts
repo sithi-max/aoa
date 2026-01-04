@@ -3,11 +3,11 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-// Create client only when env exists
 export const supabase: SupabaseClient = (() => {
+  // Normal case (prod + dev) — works
   if (url && anon) return createClient(url, anon);
 
-  // Safe placeholder: won’t crash build unless you actually call it
+  // Build-safe fallback: only throws if you actually try to use it
   return new Proxy(
     {},
     {

@@ -1,96 +1,58 @@
 ﻿"use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabaseClient";
-import { useEffect, useState } from "react";
 
-export function TopNav() {
-  const pathname = usePathname();
-  const router = useRouter();
-  const [authed, setAuthed] = useState(false);
+type TopNavProps = {
+  /** If false: hides the right-side action buttons (Create + Advertise) */
+  showActions?: boolean;
+};
 
-  const showActions =
-    pathname?.startsWith("/arena") ||
-    pathname?.startsWith("/post") ||
-    pathname?.startsWith("/create") ||
-    pathname?.startsWith("/advertise");
-
-  useEffect(() => {
-    (async () => {
-      const { data } = await supabase.auth.getSession();
-      setAuthed(!!data.session);
-    })();
-  }, []);
-
-  async function logout() {
-    await supabase.auth.signOut();
-    router.push("/login");
-  }
-
+export function TopNav({ showActions = true }: TopNavProps) {
   return (
     <div
-      className="sticky top-0 z-20"
+      className="sticky top-0 z-10 px-4 py-3 flex items-center justify-between"
       style={{
-        background: "rgba(11,16,32,0.82)",
-        backdropFilter: "blur(14px)",
+        background: "rgba(11,16,32,0.85)",
+        backdropFilter: "blur(10px)",
         borderBottom: "1px solid rgba(231,234,240,0.06)",
       }}
     >
-      <div className="aoa-max px-4 py-3 flex items-center justify-between">
-        <Link href={authed ? "/arena" : "/"} className="flex items-baseline gap-2">
-          <div className="font-semibold tracking-wide" style={{ color: "var(--text)" }}>
-            AOA
-          </div>
-          <div className="text-xs" style={{ color: "var(--muted)" }}>
-            Anonymous Opinion Arena
-          </div>
-        </Link>
+      <Link href="/" className="text-sm font-medium" style={{ color: "var(--text)" }}>
+        Home
+      </Link>
 
+      {showActions ? (
         <div className="flex items-center gap-3">
-          {authed && showActions && (
-            <>
-              <Link
-                href="/advertise"
-                className="px-3 py-2 rounded-xl text-sm font-medium"
-                style={{
-                  background: "rgba(244,185,66,0.10)",
-                  border: "1px solid rgba(244,185,66,0.18)",
-                  color: "var(--amber)",
-                }}
-              >
-                Advertise
-              </Link>
+          <Link
+            href="/advertise"
+            className="h-9 px-4 rounded-xl flex items-center justify-center text-sm font-semibold"
+            style={{
+              background: "rgba(22,29,51,0.70)",
+              border: "1px solid rgba(231,234,240,0.08)",
+              color: "rgba(231,234,240,0.92)",
+              backdropFilter: "blur(10px)",
+            }}
+          >
+            Advertise
+          </Link>
 
-              <Link
-                href="/create"
-                className="px-3 py-2 rounded-xl text-sm font-medium"
-                style={{
-                  background: "rgba(46,196,241,0.10)",
-                  border: "1px solid rgba(46,196,241,0.18)",
-                  color: "var(--cyan)",
-                }}
-              >
-                Create
-              </Link>
-            </>
-          )}
-
-          {authed && (
-            <button
-              onClick={logout}
-              className="px-3 py-2 rounded-xl text-sm"
-              style={{
-                background: "rgba(231,234,240,0.06)",
-                border: "1px solid rgba(231,234,240,0.10)",
-                color: "var(--muted)",
-              }}
-            >
-              Logout
-            </button>
-          )}
+          <Link
+            href="/create"
+            className="h-9 px-4 rounded-xl flex items-center justify-center text-sm font-semibold"
+            style={{
+              background: "rgba(46,196,241,0.14)",
+              border: "1px solid rgba(46,196,241,0.22)",
+              color: "rgba(231,234,240,0.95)",
+              backdropFilter: "blur(10px)",
+            }}
+            aria-label="Create"
+          >
+            Create
+          </Link>
         </div>
-      </div>
+      ) : (
+        <div />
+      )}
     </div>
   );
 }

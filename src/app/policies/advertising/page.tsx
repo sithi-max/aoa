@@ -3,6 +3,8 @@
 import { useCallback } from "react";
 import { TopNav } from "@/components/TopNav";
 
+const AD_EMAIL = "aoaaskhelp@gmail.com";
+
 export default function AdvertisingPolicyPage() {
   const downloadPdf = useCallback(() => {
     // Browser print → user chooses “Save as PDF”
@@ -22,12 +24,10 @@ export default function AdvertisingPolicyPage() {
       {/* Print styles (PDF) */}
       <style>{`
         @media print {
-          /* Remove backgrounds and make it clean */
           html, body {
             background: #ffffff !important;
             color: #0b1220 !important;
           }
-          /* Hide nav + glow layers + sidebar */
           .aoa-no-print { display: none !important; }
           .aoa-print-wrap {
             max-width: 860px !important;
@@ -43,7 +43,6 @@ export default function AdvertisingPolicyPage() {
           .aoa-print-muted { color: #556070 !important; }
           a { color: #0b1220 !important; text-decoration: underline !important; }
           h1, h2 { color: #0b1220 !important; }
-          /* Avoid breaking cards awkwardly */
           section, .aoa-print-card { break-inside: avoid; page-break-inside: avoid; }
         }
       `}</style>
@@ -92,7 +91,6 @@ export default function AdvertisingPolicyPage() {
                     Advertising Agreement & Policy
                   </h1>
 
-                  {/* ✅ Sponsored badge (style you can reuse on ad cards) */}
                   <SponsoredBadge />
                 </div>
 
@@ -106,7 +104,7 @@ export default function AdvertisingPolicyPage() {
                 </p>
               </div>
 
-              {/* ✅ PDF Button */}
+              {/* PDF Button */}
               <div className="aoa-no-print">
                 <button
                   onClick={downloadPdf}
@@ -135,17 +133,18 @@ export default function AdvertisingPolicyPage() {
                 <div className="text-xs aoa-print-muted" style={{ color: "var(--muted)" }}>
                   Last updated
                 </div>
-                <div className="font-semibold">[set date later]</div>
+                <div className="font-semibold">2026-01-10</div>
               </div>
               <div>
                 <div className="text-xs aoa-print-muted" style={{ color: "var(--muted)" }}>
                   Contact
                 </div>
-                <div className="font-semibold">[email placeholder]</div>
+                <div className="font-semibold">
+                  <a href={`mailto:${AD_EMAIL}`}>{AD_EMAIL}</a>
+                </div>
               </div>
             </div>
 
-            {/* small note for PDF */}
             <div className="mt-4 text-xs aoa-no-print" style={{ color: "var(--muted)" }}>
               Tip: Click “Download PDF” → choose “Save as PDF”.
             </div>
@@ -415,7 +414,7 @@ export default function AdvertisingPolicyPage() {
                 <div className="text-sm" style={{ color: "var(--muted)" }}>
                   Email:
                   <div className="font-semibold mt-1" style={{ color: "rgba(231,234,240,0.92)" }}>
-                    [placeholder]
+                    <a href={`mailto:${AD_EMAIL}`}>{AD_EMAIL}</a>
                   </div>
                 </div>
               </SideCard>
